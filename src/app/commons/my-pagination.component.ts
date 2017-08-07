@@ -33,6 +33,6 @@ export class MyPaginationComponent {
   }
   pageChange(event) {
     this.currentPage.emit(event);
-    console.log(event);
+    // console.log(event);
   }
 }

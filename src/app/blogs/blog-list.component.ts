@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BlogsService} from './services/blogs.service';
 import {Blog} from './blog';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MyModalComponent} from '../commons/my-modal.component';
 @Component({
   template: `
     <div class='container-fluid'>
@@ -30,7 +32,7 @@ import {Blog} from './blog';
           <div class="col-md-3">time:{{blog.time}}</div>
           <div class="col-md-2">
             <button class="btn btn-outline-success" type="button" routerLink="/blogs/update/{{blog.blogId}}">修改</button>
-            <button class="btn btn-outline-danger" type="button" routerLink="/blogs/delete/{{blog.blogId}}">删除</button>
+            <button class="btn btn-outline-danger" type="button" (click)="deleteConfirm()">删除</button>
           </div>
         </div>
       </div>
@@ -49,7 +51,8 @@ export class BlogListComponent implements OnInit {
   totalNum: number;
   currentPage = 0;
   constructor(
-    private blogService: BlogsService
+    private blogService: BlogsService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -69,14 +72,15 @@ export class BlogListComponent implements OnInit {
   }
 
 
-
-  updateBlog(blog): void {
-    console.log(blog.title);
-  }
-
   pageHandel(event) {
     this.currentPage = event;
     this.initHandle();
     // console.log('parent' + event);
+  }
+
+  deleteConfirm() {
+    const activeModal = this.modalService.open(MyModalComponent, {size: 'lg'});
+    activeModal.componentInstance.modalHeader = '确认删除？';
+    activeModal.componentInstance.modalContent = '本次删除会将该文章放入回收站，进入回收站可以永久删除';
   }
 }

@@ -25,7 +25,7 @@ export class BlogsService {
     if (page === undefined) {
       page = 1;
     }
-    console.log(this.blogsUrl);
+    // console.log(this.blogsUrl);
     return this.http.get(this.blogsUrl + '?method=list&page=' + page)
       .map(this.extractData)
       .catch(this.handleError);

@@ -15,18 +15,18 @@ import 'ckeditor';
       <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="form-group">
           <label class="d-block">
-            <input class="form-control" formControlName="name"  placeholder="标题，2到32个字符" />
+            <input class="form-control" formControlName="name" [(ngModel)]="blog.title" placeholder="标题，2到32个字符" />
           </label>
         </div>
         <div formGroupName="reprinted">
           <div class="form-group">
             <label class="d-block">
-              <input class="form-control" formControlName="reprintedUrl" value="{{time}}" placeholder="原文URL，如果是转载请粘贴，最长1024个字符" />
+              <input class="form-control" formControlName="reprintedUrl" [(ngModel)]="blog.time" placeholder="原文URL，如果是转载请粘贴，最长1024个字符" />
             </label>
           </div>
         </div>
         <div>
-          <ckeditor formControlName="content" >
+          <ckeditor formControlName="content" [(ngModel)]="blog.title" >
           </ckeditor>
         </div>
         <div><button class="btn btn-success" type="submit" >提交</button></div>
@@ -45,9 +45,7 @@ import 'ckeditor';
 export class BlogUpdateComponent implements OnInit {
 
   blogId: number;
-  blog: Blog;
-  title: string;
-  time: string;
+  blog: Blog = new Blog();
   errorMessage: string;
   blogForm: FormGroup;
   constructor (
@@ -65,7 +63,7 @@ export class BlogUpdateComponent implements OnInit {
       reprinted: this.fb.group({
         reprintedUrl: ''
       }),
-      content: '<p>My HTML</p>'
+      content: ''
     });
   }
 
@@ -79,22 +77,14 @@ export class BlogUpdateComponent implements OnInit {
 
   initHandle() {
     this.blogService.getBlogById(this.blogId).subscribe(
-      result => {
-        console.log(result);
-        return this.blog = result.data;
-      },
+      result => this.blog = result.data,
       error => this.errorMessage = <any>error
-    )
-    console.log(this.blog);
-    this.title = this.blog.title;
-    this.time = this.blog.time;
-    this.blogForm = this.fb.group({
-      content: this.title
-    });
+    );
   }
 
   onSubmit(): void {
     console.log(this.blogForm.value);
+    console.log(this.blog);
   }
 
 }

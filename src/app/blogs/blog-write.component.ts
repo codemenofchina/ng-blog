@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
 import './ckeditor.loader';
 import 'ckeditor';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Blog} from './blog';
 @Component({
   template: `
     <br>
@@ -13,26 +14,22 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
       <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="form-group">
           <label class="d-block">
-            <input class="form-control" formControlName="name" placeholder="标题，2到32个字符" />
+            <input class="form-control" formControlName="name" [(ngModel)]="blog.title" placeholder="标题，2到32个字符" />
           </label>
         </div>
         <div formGroupName="reprinted">
           <div class="form-group">
             <label class="d-block">
-              <input class="form-control" formControlName="reprintedUrl" placeholder="原文URL，如果是转载请粘贴，最长1024个字符" />
+              <input class="form-control" formControlName="reprintedUrl" [(ngModel)]="blog.time" placeholder="原文URL，如果是转载请粘贴，最长1024个字符" />
             </label>
           </div>
         </div>
         <div>
-          <ckeditor formControlName="content">
+          <ckeditor formControlName="content" [(ngModel)]="blog.title">
           </ckeditor>
         </div>
         <div><button class="btn btn-success" type="submit" >提交</button></div>
       </form>
-      <!--<p>formValue: {{blogForm.value | json}}</p>-->
-      <!--<p>formStatus: {{blogForm.status | json}}</p>-->
-      <!--<p>reprintedValue: {{blogForm.get('reprinted.reprintedUrl').value}}</p>-->
-      <!--<p>contentValue: {{blogForm.get('content').value}}</p>-->
     </div>
   `
 })
@@ -40,6 +37,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class BlogWriteComponent implements OnInit {
 
   blogForm: FormGroup;
+
+  blog: Blog = new Blog();
 
   constructor(private fb: FormBuilder) {
     this.createFrom();
@@ -60,5 +59,6 @@ export class BlogWriteComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.blogForm.value);
+    console.log(this.blog);
   }
 }

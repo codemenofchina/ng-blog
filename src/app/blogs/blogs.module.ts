@@ -14,6 +14,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {MyPaginationComponent} from '../commons/my-pagination.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MyModalComponent} from '../commons/my-modal.component';
 @NgModule({
   declarations: [
     BlogsComponent,
@@ -22,7 +23,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BlogWriteComponent,
     BlogUpdateComponent,
     BlogDeleteComponent,
-    MyPaginationComponent
+    MyPaginationComponent,
+    MyModalComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BlogRoutingModule,
     ReactiveFormsModule,
     NgbModule
+  ],
+  entryComponents: [
+    MyModalComponent
   ]
 })
 

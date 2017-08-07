@@ -12,6 +12,7 @@ import {BlogsService} from './services/blogs.service';
       <strong>ID: {{ blog.blogId }}</strong>
       <strong>TIME: {{ blog.time }}</strong>
     </div>
+    <!--<div>HHHHHH</div>-->
   `,
   providers: [
     BlogsService
@@ -20,7 +21,7 @@ import {BlogsService} from './services/blogs.service';
 
 export class BlogDetailComponent implements OnInit {
 
-  blog: Blog;
+  blog: Blog = new Blog();
   id: number;
   errorMessage: string;
 
@@ -30,6 +31,14 @@ export class BlogDetailComponent implements OnInit {
     private blogService: BlogsService
   ) {}
 
+  initHandle() {
+    this.blogService.getBlogById(this.id).subscribe(
+      result => this.blog = result.data,
+      error => this.errorMessage = <any>error
+    )
+
+  }
+
   ngOnInit() {
     this.route.params.subscribe(res => {
       // console.log('detail: ' + res.id);
@@ -38,13 +47,5 @@ export class BlogDetailComponent implements OnInit {
     this.initHandle();
   }
 
-  initHandle() {
-    this.blogService.getBlogById(this.id).subscribe(
-      result => {
-        this.blog = result.data
-      },
-      error => this.errorMessage = <any>error
-    )
 
-  }
 }

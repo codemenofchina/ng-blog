@@ -1,8 +1,8 @@
 /**
  * Created by chenqiang on 2017/8/6.
  */
-import {Component, OnInit} from '@angular/core';
-import {ModalDismissReasons, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-my-model',
   styles: [
@@ -12,7 +12,7 @@ import {ModalDismissReasons, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bo
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">{{modalHeader}}</h4>
-        <button class="close" aria-label="Close" (click)="close()">
+        <button class="close" aria-label="Close" (click)="close(false)">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -20,7 +20,7 @@ import {ModalDismissReasons, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bo
         {{modalContent}}
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary confirm-btn" (click)="confirm()">确认</button>
+        <button class="btn btn-primary confirm-btn" (click)="close(true)">确认</button>
       </div>
     </div>
   `
@@ -31,18 +31,15 @@ export class MyModalComponent implements OnInit {
   modalHeader: string;
   modalContent: string;
 
+  @Output() flag = new EventEmitter<boolean>();
   constructor(private activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {}
 
-  close() {
-    console.log('modal closed')
-    this.activeModal.close();
-  }
-
-  confirm() {
-    console.log('modal confirm')
+  close(flag: boolean) {
+    this.flag.emit(flag);
+    console.log(flag);
     this.activeModal.close();
   }
 }

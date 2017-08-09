@@ -15,6 +15,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import {MyPaginationComponent} from '../commons/my-pagination.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MyModalComponent} from '../commons/my-modal.component';
+import {MyButtonModelComponent} from '../commons/my-button-modal.component';
 @NgModule({
   declarations: [
     BlogsComponent,
@@ -24,7 +25,8 @@ import {MyModalComponent} from '../commons/my-modal.component';
     BlogUpdateComponent,
     BlogDeleteComponent,
     MyPaginationComponent,
-    MyModalComponent
+    MyModalComponent,
+    MyButtonModelComponent
   ],
   imports: [
     CommonModule,

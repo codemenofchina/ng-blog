@@ -7,6 +7,7 @@ import { PageNotFoundComponent }    from './not-found.component';
 const appRoutes: Routes = [
   { path: 'blogs', loadChildren: 'app/blogs/blogs.module#BlogsModule'},
   { path: 'echart', loadChildren: 'app/echarts/echarts.module#EchartsModule'},
+  { path: 'user', loadChildren: 'app/user/user.module#UserModule'},
   { path: '',  redirectTo: 'blogs', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

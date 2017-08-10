@@ -22,7 +22,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
         <button type="button" (click)="c('Close click')" class='btn btn-primary' type='button'>确认</button>
       </div>
     </ng-template>
-    <span (click)="open(content)">{{buttonName}}</span>
+    <button class="{{buttonCss}}" (click)="open(content)">{{buttonName}}</button>
   `
 })
 export class MyButtonModelComponent {
@@ -30,6 +30,7 @@ export class MyButtonModelComponent {
   @Input() buttonName: string;
   @Input() title: string;
   @Input() bodyContent: string;
+  @Input() buttonCss: string;
   constructor(private modalService: NgbModal) {}
 
   open(content) {

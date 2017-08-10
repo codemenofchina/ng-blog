@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BlogsService} from './services/blogs.service';
 import {Blog} from './blog';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MyModalComponent} from '../commons/my-modal.component';
 @Component({
   template: `
     <div class='container-fluid'>
@@ -31,9 +32,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
           <div class="col-md-3">time:{{blog.time}}</div>
           <div class="col-md-2">
             <button class="btn btn-outline-success" type="button" routerLink="/blogs/update/{{blog.blogId}}">修改</button>
-            <button class="btn btn-outline-danger" type="button" >
-              <app-button-modal-basic  (onCloseResult)="onCloseResult($event)" [title]="title" [bodyContent]="bodyContent" [buttonName]="buttonName"></app-button-modal-basic></button>
+            <app-button-modal-basic  (onCloseResult)="onCloseResult($event)" [buttonCss]="buttonCss" [title]="title" [bodyContent]="bodyContent" [buttonName]="buttonName"></app-button-modal-basic>
+            <!--<button class="btn btn-outline-danger" type="button" (click)="childModalShow()" >haha</button>-->
           </div>
+          <hr/>
         </div>
       </div>
     </div>
@@ -51,11 +53,13 @@ export class BlogListComponent implements OnInit {
   totalNum: number;
   currentPage = 0;
   buttonName = '删除';
+  buttonCss = 'btn btn-outline-danger';
   closeResult = false;
   title = '确认删除？';
   bodyContent = '本次删除会将该文章放入回收站，进入回收站可以永久删除';
   constructor(
     private blogService: BlogsService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -80,6 +84,33 @@ export class BlogListComponent implements OnInit {
     this.initHandle();
   }
 
+  // childModalShow() {
+  //   console.log(1);
+  //   let ngbModalInstance =this.modalService.open(MyModalComponent, {size: 'sm'});
+  //
+  //   // ngbModalInstance.then(function(){
+  //   // console.log()
+  //   //
+  //   // })
+  //   const ngbModalRef = this.modalService.open(MyModalComponent, {size: 'sm'});
+  //   console.log(ngbModalRef);
+  //   ngbModalRef.componentInstance.modalHeader = 'Child modal';
+  //   ngbModalRef.componentInstance.modalContent = `I am a child modal, opened from parent component!`;
+  //   console.log(2);
+  //   // this.modalActiveService.close(result => {
+  //   //   console.log(4);
+  //   //   console.log(result)
+  //   // });
+  //   // this.modalActiveService.dismiss(reason => {
+  //   //   console.log(5);
+  //   //   console.log(reason);
+  //   // });
+  //   console.log(3);
+  // }
+
+  flag(flag: boolean) {
+    console.log(flag);
+  }
 
   onCloseResult(closeResult: boolean) {
     this.closeResult = closeResult;

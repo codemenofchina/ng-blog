@@ -13,7 +13,7 @@ import 'rxjs/add/operator/catch';
 export class BlogsService {
 
   // public blogsUrl = 'mock-data/bloglist-mock.json';
-  public blogsUrl = 'http://127.0.0.1:8080/MyBlog2/TestMyServlet';
+  public blogsUrl = '/MyBlog2/TestMyServlet';
 
   constructor (
     private http: Http,

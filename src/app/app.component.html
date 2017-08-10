@@ -26,10 +26,10 @@
     <div style="float: right">
       <ul *ngIf="!currentUser?.userName" style="float: right" class="nav">
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="dropdown" >
-          <a routerLink="login" class="navbar-brand navbar-brand-my">登录</a>
+          <a routerLink="user/login" class="navbar-brand navbar-brand-my">登录</a>
         </li>
         <li routerLinkActive="active" class="dropdown">
-          <a routerLink="register" class="navbar-brand navbar-brand-my">注册</a>
+          <a routerLink="user/register" class="navbar-brand navbar-brand-my">注册</a>
         </li>
       </ul>
       <ul *ngIf="currentUser?.userName" style="float: right" class="nav">

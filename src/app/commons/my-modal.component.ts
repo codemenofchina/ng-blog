@@ -12,7 +12,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">{{modalHeader}}</h4>
-        <button class="close" aria-label="Close" (click)="close(false)">
+        <button class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -20,7 +20,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
         {{modalContent}}
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary confirm-btn" (click)="close(true)">确认</button>
+        <button class="btn btn-primary confirm-btn" (click)="activeModal.close('Close click')">确认</button>
       </div>
     </div>
   `
@@ -31,15 +31,9 @@ export class MyModalComponent implements OnInit {
   modalHeader: string;
   modalContent: string;
 
-  @Output() flag = new EventEmitter<boolean>();
-  constructor(private activeModal: NgbActiveModal) {
+  constructor(public activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {}
 
-  close(flag: boolean) {
-    this.flag.emit(flag);
-    console.log(flag);
-    this.activeModal.close();
-  }
 }
